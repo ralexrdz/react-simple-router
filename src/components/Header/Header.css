@@ -1,0 +1,11 @@
+header {
+  background-color: black;
+  display: flex;
+  justify-content: space-around;
+}
+
+header Link, header a {
+  color: #eae;
+  text-decoration: none;
+  text-transform: capitalize;
+}
