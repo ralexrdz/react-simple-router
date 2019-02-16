@@ -22,6 +22,9 @@ class App extends Component {
           <Route exact path="/login" component={Login}/>
           <Route exact path="/about" component={AboutContainer}/>
         </Switch>
+        <AboutContainer hola="saluda" adios="chao" asd="123">
+          <div>Childreeen</div>
+        </AboutContainer>
       </div>
     );
   }
