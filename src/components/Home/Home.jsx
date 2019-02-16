@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
 
+import Toggle from '../Toggle/Toggle'
+
 class Home extends Component {
   render() {
     return (
-      <h1>HOME</h1>
+      <div>
+        <h1>HOME</h1>
+        <Toggle/>
+      </div>
+
     );
   }
 }
