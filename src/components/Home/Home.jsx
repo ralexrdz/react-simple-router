@@ -1,17 +1,27 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
 
-import Toggle from '../Toggle/Toggle'
+import TuitList from '../Tuit/TuitList';
 
 class Home extends Component {
   render() {
     return (
       <div>
         <h1>HOME</h1>
-        <Toggle/>
+        <TuitList {...this.props}/>
       </div>
 
     );
   }
 }
 
-export default Home;
+function mapStateToProps(state) {
+  return {
+    tuits: state.tuits,
+    session: state.session
+  };
+}
+
+
+
+export default connect(mapStateToProps)(Home);

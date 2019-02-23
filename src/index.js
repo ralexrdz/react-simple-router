@@ -5,10 +5,20 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+import { Provider } from 'react-redux'
+import { createStore, applyMiddleware } from 'redux'
+
+import reducers from './reducers'
+
+const createStoreWithMiddleware = applyMiddleware()(createStore);
+
 ReactDOM.render(
-  <BrowserRouter>
-    <App/>
-  </BrowserRouter>
+  <Provider store={createStoreWithMiddleware(reducers)}>
+    <BrowserRouter>
+      <App/>
+    </BrowserRouter>
+  </Provider>
+
   , document.getElementById('root')
 );
 

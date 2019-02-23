@@ -10,10 +10,6 @@ class Toggle extends React.Component {
   }
 
   handleClick (e, num, asd) {
-    console.log('this', this)
-    console.log('e.target', e.target)
-    console.log('num', num)
-    console.log('asd', asd)
     let colorArr = ['blue', 'green', 'yellow', 'pink', 'orange', 'purple']
     e.target.style['background-color'] = colorArr[Math.floor(Math.random() * colorArr.length)]
     this.setState(state => ({

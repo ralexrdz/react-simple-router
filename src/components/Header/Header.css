@@ -9,3 +9,7 @@ header Link, header a {
   text-decoration: none;
   text-transform: capitalize;
 }
+
+header span {
+  color: #eee
+}
