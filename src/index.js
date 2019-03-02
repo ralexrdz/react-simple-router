@@ -7,21 +7,29 @@ import * as serviceWorker from './serviceWorker';
 
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware } from 'redux'
+import { ConnectedRouter, routerMiddleware } from 'connected-react-router';
+import { createBrowserHistory } from 'history';
 
 import reducers from './reducers'
 
-const createStoreWithMiddleware = applyMiddleware()(createStore);
+const history = createBrowserHistory()
+
+const createStoreWithMiddleware = applyMiddleware(
+  routerMiddleware(history)
+)(createStore);
 
 const store = createStoreWithMiddleware(
-  reducers,
+  reducers(history),
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 )
 
 ReactDOM.render(
   <Provider store={store}>
-    <BrowserRouter>
-      <App/>
-    </BrowserRouter>
+    <ConnectedRouter history={history}>
+      <BrowserRouter>
+        <App/>
+      </BrowserRouter>
+    </ConnectedRouter>
   </Provider>
 
   , document.getElementById('root')
