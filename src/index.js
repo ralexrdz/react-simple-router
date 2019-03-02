@@ -12,9 +12,15 @@ import { createBrowserHistory } from 'history';
 
 import reducers from './reducers'
 
+import createSagaMiddleware from 'redux-saga'
+import sagaRoot from './sagas'
+
+const sagaMiddleware = createSagaMiddleware()
+
 const history = createBrowserHistory()
 
 const createStoreWithMiddleware = applyMiddleware(
+  sagaMiddleware,
   routerMiddleware(history)
 )(createStore);
 
@@ -22,6 +28,8 @@ const store = createStoreWithMiddleware(
   reducers(history),
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 )
+
+sagaMiddleware.run(sagaRoot)
 
 ReactDOM.render(
   <Provider store={store}>

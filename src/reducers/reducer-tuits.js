@@ -11,6 +11,8 @@ function tuitsReducer (state = [{
     case 'DELETE_TUIT':
       let filterTuits = state.filter((tuit) => tuit.id !== action.tuitId)
       return filterTuits
+    case 'GET_TWEETS_SUCCESSFUL':
+      return [...state, ...action.tweets]
     default:
       return state
   }
