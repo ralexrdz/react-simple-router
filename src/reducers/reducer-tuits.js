@@ -1,7 +1,8 @@
 function tuitsReducer (state = [{
+  id: Date.now(),
   text: 'Hola',
   quien: 'ralex',
-  date: Date.now()
+  date: new Date().toLocaleString('es-MX')
 }], action) {
   switch (action.type) {
     case 'ADD_TUIT':
