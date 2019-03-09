@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 
 import addTuitAction from '../../actions/action-add-tuit'
+import setDraftAction from '../../actions/actoin-set-draft'
 
 
 
@@ -30,6 +31,10 @@ class TuitForm extends Component {
     // limpiar textarea y input
   }
 
+  componentWillUnmount () {
+    this.props.setDraftAction(this.state.text)
+  }
+
   handleTextChange(e) {
     this.setState({
       text: e.target.value
@@ -45,6 +50,7 @@ class TuitForm extends Component {
             <textarea
               name="text" 
               placeholder="escribe un tuit"
+              value={this.props.draft}
               onChange={(e) => this.handleTextChange(e)}
             />
             <div>
@@ -58,12 +64,16 @@ class TuitForm extends Component {
 
 function mapStateToProps (state) {
   return {
-    session: state.session
+    session: state.session,
+    draft: state.draft
   }
 }
 
 function mapDispatchToProps (dispatch) {
-  return bindActionCreators({addTuitAction}, dispatch)
+  return bindActionCreators({
+    addTuitAction,
+    setDraftAction
+  }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TuitForm);
