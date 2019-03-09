@@ -7,16 +7,37 @@ import * as serviceWorker from './serviceWorker';
 
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware } from 'redux'
+import { ConnectedRouter, routerMiddleware } from 'connected-react-router';
+import { createBrowserHistory } from 'history';
 
 import reducers from './reducers'
 
-const createStoreWithMiddleware = applyMiddleware()(createStore);
+import createSagaMiddleware from 'redux-saga'
+import sagaRoot from './sagas'
+
+const sagaMiddleware = createSagaMiddleware()
+
+const history = createBrowserHistory()
+
+const createStoreWithMiddleware = applyMiddleware(
+  sagaMiddleware,
+  routerMiddleware(history)
+)(createStore);
+
+const store = createStoreWithMiddleware(
+  reducers(history),
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+)
+
+sagaMiddleware.run(sagaRoot)
 
 ReactDOM.render(
-  <Provider store={createStoreWithMiddleware(reducers)}>
-    <BrowserRouter>
-      <App/>
-    </BrowserRouter>
+  <Provider store={store}>
+    <ConnectedRouter history={history}>
+      <BrowserRouter>
+        <App/>
+      </BrowserRouter>
+    </ConnectedRouter>
   </Provider>
 
   , document.getElementById('root')
